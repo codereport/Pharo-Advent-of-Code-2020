@@ -22,3 +22,13 @@ String >> day02B [
    password := parsed at: 5.
    ^ (password at: left :> = letter) ~~ (password at: right :> = letter).
 ]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+String >> day04A [
+   | delim |
+   delim := String new: 2 withAll: Character cr.
+   ^ self splitOn: delim
+       :> collect: [ :e | e substrings first ]
+       :> select:  [ :e | (e size = 8) or: ((e size = 7) and: (e includes: 'cid' :> not)) ]
+       :> size.
+]
