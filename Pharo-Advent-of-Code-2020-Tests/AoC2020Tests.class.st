@@ -13,3 +13,33 @@ AoC2020Tests >> testDay01A [
 AoC2020Tests >> testDay01B [
 	self assert: (#(1721 979 366 299 675 1456) day01B) equals: 241861950.
 ]
+
+{ #category : #tests }
+AoC2020Tests >> testDay02A [
+	self assert: ('1-3 a: abcde'     day02A).
+	self deny:   ('1-3 b: cdefg'     day02A).
+	self assert: ('2-9 c: ccccccccc' day02A).
+]
+
+{ #category : #tests }
+AoC2020Tests >> testDay02B [
+	self assert: ('1-3 a: abcde'     day02B).
+	self deny:   ('1-3 b: cdefg'     day02B).
+	self deny:   ('2-9 c: ccccccccc' day02B).
+]
+
+{ #category : #tests }
+AoC2020Tests >> testDay03A [
+	self assert: 
+	(#('..##.......'
+     '#...#...#..'
+     '.#....#..#.'
+     '..#.#...#.#'
+     '.#...##..#.'
+     '..#.##.....'
+     '.#.#.#....#'
+     '.#........#'
+     '#.##...#...'
+     '#...##....#'
+     '.#..#...#.#' ) day03A) equals: 7.
+]
