@@ -13,7 +13,7 @@ Array >> day01B [
 	^ self combinationsOf: 3
 	       select: [ :e | e sum == 2020 ]
 	    :> first 
-	    :> inject: 1 into: #*.
+	    :> reduce: #*.
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }

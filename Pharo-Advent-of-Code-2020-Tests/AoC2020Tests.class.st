@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #tests }
+AoC2020Tests >> WhatILearnedFromAoC [
+   "Learned about Point (@) as an alternative to Pair"
+   "Learned about restarting test and debugging through it"
+   "Learned that Collection has reduce and fold on top of inject"
+   "Learned that first, second, third etc can be used instead of at: 1, 2, 3 etc"
+   "Learned about String new: 2 withAll: ..."
+   "Learned you can assign blocks to local variables"
+]
+
+{ #category : #tests }
 AoC2020Tests >> testDay01A [
 	self assert: (#(1721 979 366 299 675 1456) day01A) equals: 514579.
 ]

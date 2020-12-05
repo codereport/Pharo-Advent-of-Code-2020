@@ -75,7 +75,7 @@ String >> day04B [
 String >> day05A [
    ^ self lines 
           collect: #day05AseatId
-       :> inject: -1 into: #max:.
+       :> reduce: #max:.
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
@@ -94,14 +94,9 @@ String >> day05AseatId [
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
 String >> day05B [
-  | temp |
-  temp := self lines 
-         collect: #day05AseatId
-      :> sort.
-  ^ temp zip: (temp allButFirst) 
-    :> asArray
-    :> select: [ :e | (e second) - (e first) ~~ 1 ]
-    :> first
-    :> first 
-    :> + 1.
+  ^ self lines 
+      :> collect: #day05AseatId
+      :> sorted
+      :> adjacentFind: [ :a :b | b - a ~~ 1 ]
+      :> average.
 ]
