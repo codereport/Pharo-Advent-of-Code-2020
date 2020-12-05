@@ -21,8 +21,8 @@ Array >> day03A [
    | h |
    h := self size.
    ^ h iota 
-    :> collect: [ :e | Pair with: e with: (((e - 1) * 3 % h) + 1) ]
-    :> collect: [ :p | self at: (p first) :> at: (p second) ]
+    :> collect: [ :e |  e @ (((e - 1) * 3 % h) + 1) ]
+    :> collect: [ :p | self at: (p x) :> at: (p y) ]
     :> select:  [ :e | e = $# ]
     :> size.
 
