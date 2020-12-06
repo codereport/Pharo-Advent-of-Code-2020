@@ -111,3 +111,26 @@ String >> day05B [
       :> adjacentFind: [ :a :b | b - a ~~ 1 ]
       :> average.
 ]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+String >> day06A [
+   | delim |
+	delim := String new: 2 withAll: Character cr.
+   ^ self splitOn: delim
+       :> collect: #lines
+       :> collect: [ :e | e fold: #, ]
+       :> collect: #asSet
+	    :> collect: #size
+	    :> reduce:  #+.
+]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+String >> day06B [
+   | delim |
+	delim := String new: 2 withAll: Character cr.
+   ^ self splitOn: delim
+       :> collect: #lines
+       :> collect: [ :e | e fold: #& ]
+	    :> collect: #size
+	    :> reduce:  #+.
+]
