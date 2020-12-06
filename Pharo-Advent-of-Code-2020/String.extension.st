@@ -51,23 +51,34 @@ String >> day04A [
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
 String >> day04B [
-   | delim valid validByr validIyr validEyr validEcl |
+   | delim valid validByr validIyr validEyr validHgt validHcl validEcl validPid |
 
    delim := String new: 2 withAll: Character cr.
 
    validByr := [ :e | (e size = 4) and: (e asNumber between: 1920 and: 2002). ].
    validIyr := [ :e | (e size = 4) and: (e asNumber between: 2010 and: 2020). ].
    validEyr := [ :e | (e size = 4) and: (e asNumber between: 2020 and: 2030). ].
-	
+   validHgt := [ :e | (e size between: 4 and: 5) and: ((e allButLast: 2) = 'in'
+	    ifTrue: [ ((e allButFirst: 2) asNumber between: 59 and: 76) ]
+	    ifFalse: ((e allButLast: 2) = 'cm' and: (((e allButFirst: 3) isAllDigits) and: (((e allButFirst: 3) asNumber) between: 150 and: 193 )))) ].
+   validHcl := [ :e | (e size = 7) and: (e first = $# and: (e allButLast: 6 :> allSatisfy: [ :c | ('01234567890abcdef' indexOf: c) ~~ 0 ])) ].
    validEcl := [ :e | #('amb' 'blu' 'brn' 'gry' 'grn' 'hzl' 'oth') includes: e ].
+   validPid := [ :e | (e size = 9) and: (e isAllDigits) ].
    
    valid := [ :e | 
-	    e first = 'byr' ifTrue: (e second validByr)
-	    ifFalse: false. ].
+	    e first = 'byr' ifTrue: [ validByr value: (e second) ] ifFalse:
+	   (e first = 'iyr' ifTrue: [ validIyr value: (e second) ] ifFalse:
+	   (e first = 'eyr' ifTrue: [ validEyr value: (e second) ] ifFalse:
+     (e first = 'hgt' ifTrue: [ validHgt value: (e second) ] ifFalse:
+     (e first = 'hcl' ifTrue: [ validHcl value: (e second) ] ifFalse:
+	   (e first = 'ecl' ifTrue: [ validEcl value: (e second) ] ifFalse:
+     (e first = 'pid' ifTrue: [ validPid value: (e second) ] ifFalse: (e first = 'cid'))))))). ].
 
    ^ self splitOn: delim
        :> collect: [ :e | e substrings :> collect: [ :kv | kv splitOn: $: ] ]
-       :> collect: [ :e | e collect: valid ].
+       :> collect: [ :e | (e size >= 7) and: (e collect: valid) :> fold: #and: ]
+       :> select: #yourself
+       :> size.
 
 ]
 
