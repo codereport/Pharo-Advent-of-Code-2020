@@ -132,3 +132,13 @@ String >> day06B [
        :> collect: #size
        :> reduce:  #+.
 ]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+String >> day07a [
+   | parsed |
+   parsed := self copyWithoutAll: 's.'
+      :> lines
+      :> collect: [ :e | e splitOn: 'bag' :> select: #isNotEmpty :> asArray ]" can remove asArray "
+      :> collect: [ :e | e collect: [ :f | f substrings last: 2 :> fold: #, ] ].
+   ^ 0.
+]
