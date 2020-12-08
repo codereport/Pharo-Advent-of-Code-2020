@@ -149,17 +149,15 @@ String >> day08a [
    asm := self lines
        :> collect: #substrings
        :> collect: [ :e | Pair with: e first with: (e last copyWithout: $+) asNumber ].
-
    seen := Set new.
    idx  := 1.
    acc  := 0.
-
    [ seen includes: idx ] whileFalse: [ 
-	   seen add: idx.
-	   p   := asm at: idx.
+      seen add: idx.
+      p   := asm at: idx.
       idx := (p first = 'jmp') ifTrue: [ idx + (p second) ] ifFalse: [ idx + 1 ].
-	   acc := (p first = 'acc') ifTrue: [ acc + (p second) ] ifFalse: [ acc ]. ].
-
+      acc := (p first = 'acc') ifTrue: [ acc + (p second) ] ifFalse: [ acc ]. 
+   ].
    ^ acc.
 ]
 
