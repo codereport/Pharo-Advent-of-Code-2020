@@ -147,8 +147,8 @@ String >> day07a [
 String >> day08a [
    | asm seen idx acc p |
    asm := self lines
-            :> collect: #substrings
-            :> collect: [ :e | Pair with: e first with: (e last copyWithout: $+) asNumber ].
+       :> collect: #substrings
+       :> collect: [ :e | Pair with: e first with: (e last copyWithout: $+) asNumber ].
 
    seen := Set new.
    idx  := 1.
@@ -156,9 +156,9 @@ String >> day08a [
 
    [ seen includes: idx ] whileFalse: [ 
 	   seen add: idx.
-	   p := asm at: idx.
-      p first = 'jmp' ifTrue: [ idx := idx + (p second) ] ifFalse: [ idx := idx + 1 ].
-	   p first = 'acc' ifTrue: [ acc := acc + (p second) ]. ].
+	   p   := asm at: idx.
+      idx := (p first = 'jmp') ifTrue: [ idx + (p second) ] ifFalse: [ idx + 1 ].
+	   acc := (p first = 'acc') ifTrue: [ acc + (p second) ] ifFalse: [ acc ]. ].
 
    ^ acc.
 ]
@@ -179,9 +179,9 @@ String >> day08b [
          [ (seen includes: idx) or: (idx > asm size) ] whileFalse: [ 
 	         seen add: idx.
 	         p := asm at: idx.
-	         a := p first.
+	         a := p first. " how to avoid itm here "
 	         idx = flip ifTrue: [ p first = 'nop' ifTrue: [ a := 'jmp' ] ifFalse: [ a := 'nop' ] ].
-            a = 'jmp' ifTrue: [ idx := idx + (p second) ] ifFalse: [ idx := idx + 1 ].
+            a = 'jmp' ifTrue: [ idx := idx + (p second) ] ifFalse: [ idx := idx + 1 ]. " how to avoid itm here "
 	         a = 'acc' ifTrue: [ acc := acc + (p second) ]. 
 	      ].
 	      idx = (asm size + 1) ifTrue: [ ^ acc. ]
