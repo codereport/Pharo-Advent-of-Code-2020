@@ -142,3 +142,50 @@ String >> day07a [
       :> collect: [ :e | e collect: [ :f | f substrings last: 2 :> fold: #, ] ].
    ^ 0.
 ]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+String >> day08a [
+   | asm seen idx acc p |
+   asm := self lines
+            :> collect: #substrings
+            :> collect: [ :e | Pair with: e first with: (e last copyWithout: $+) asNumber ].
+
+   seen := Set new.
+   idx  := 1.
+   acc  := 0.
+
+   [ seen includes: idx ] whileFalse: [ 
+	   seen add: idx.
+	   p := asm at: idx.
+      p first = 'jmp' ifTrue: [ idx := idx + (p second) ] ifFalse: [ idx := idx + 1 ].
+	   p first = 'acc' ifTrue: [ acc := acc + (p second) ]. ].
+
+   ^ acc.
+]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+String >> day08b [
+   | asm seen idx acc p flip |
+   asm := self lines
+            :> collect: #substrings
+            :> collect: [ :e | Pair with: e first with: (e last copyWithout: $+) asNumber ].
+
+
+	flip := 1.
+
+	[ true ] whileTrue: [ 
+      (asm at: flip :> first :> = 'jmp') ifFalse: [ 
+         seen := Set new.
+         idx  := 1.
+         acc  := 0.
+         [ (seen includes: idx) or: (idx = asm size) ] whileFalse: [ 
+	         seen add: idx.
+	         p := asm at: idx.
+            p first = 'jmp' ifTrue: [ idx := idx + (p second) ] ifFalse: [ idx := idx + 1 ].
+	         p first = 'acc' ifTrue: [ acc := acc + (p second) ]. 
+	      ].
+	      idx = (asm size) ifTrue: [ ^ acc. ]
+	   ].
+      flip := flip + 1.
+   ]
+]
