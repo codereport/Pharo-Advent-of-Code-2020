@@ -7125,7 +7125,7 @@ acc -17
 jmp +1
 acc +28
 jmp +1
-' day08b) equals: 2051.
+' day08b) equals: 2304.
 
 
 

@@ -165,26 +165,26 @@ String >> day08a [
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
 String >> day08b [
-   | asm seen idx acc p flip |
+   | asm seen idx acc p flip a |
    asm := self lines
             :> collect: #substrings
             :> collect: [ :e | Pair with: e first with: (e last copyWithout: $+) asNumber ].
 
-
 	flip := 1.
-
 	[ true ] whileTrue: [ 
-      (asm at: flip :> first :> = 'jmp') ifFalse: [ 
+      (asm at: flip :> first :> = 'acc') ifFalse: [ 
          seen := Set new.
          idx  := 1.
          acc  := 0.
-         [ (seen includes: idx) or: (idx = asm size) ] whileFalse: [ 
+         [ (seen includes: idx) or: (idx > asm size) ] whileFalse: [ 
 	         seen add: idx.
 	         p := asm at: idx.
-            p first = 'jmp' ifTrue: [ idx := idx + (p second) ] ifFalse: [ idx := idx + 1 ].
-	         p first = 'acc' ifTrue: [ acc := acc + (p second) ]. 
+	         a := p first.
+	         idx = flip ifTrue: [ p first = 'nop' ifTrue: [ a := 'jmp' ] ifFalse: [ a := 'nop' ] ].
+            a = 'jmp' ifTrue: [ idx := idx + (p second) ] ifFalse: [ idx := idx + 1 ].
+	         a = 'acc' ifTrue: [ acc := acc + (p second) ]. 
 	      ].
-	      idx = (asm size) ifTrue: [ ^ acc. ]
+	      idx = (asm size + 1) ifTrue: [ ^ acc. ]
 	   ].
       flip := flip + 1.
    ]
