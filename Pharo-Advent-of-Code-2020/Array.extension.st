@@ -27,3 +27,31 @@ Array >> day03A [
     :> size.
 
 ]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+Array >> day09a: anInteger [ 
+   | notTwoSum |
+	notTwoSum := [ :l | l allButLast combinationsOf: 2 
+		                           collect: [ :e | e sum = (l last) ] 
+		                        :> select: #yourself 
+		                        :> size :> = 0]. 
+
+	^ self slide: (anInteger + 1)
+	    :> select: notTwoSum
+	    :> first
+	    :> last.
+]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+Array >> day09b: anInteger [ 
+   | len lists |
+   len := 2.
+   [ true ] whileTrue: [ 
+      lists := 	self slide: len
+	         :> select: [ :l | l sum = anInteger ].
+		lists isNotEmpty ifTrue: [ 
+			^ (lists first fold: #min:) + (lists first fold: #max:) ].
+		len := len + 1.
+	].
+
+]
