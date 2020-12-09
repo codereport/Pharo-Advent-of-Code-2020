@@ -4,10 +4,10 @@ Extension { #name : #String }
 String >> day02A [
    | parsed lower upper letter password count |
    parsed   := self splitOnAny: '-: '.
-   lower    := parsed at: 1 :> asNumber.
-   upper    := parsed at: 2 :> asNumber.
-   letter   := parsed at: 3 :> first.
-   password := parsed at: 5.
+   lower    := parsed first asNumber.
+   upper    := parsed second asNumber.
+   letter   := parsed third first.
+   password := parsed fifth.
    count    := password occurrencesOf: letter.
    ^ count between: lower and: upper.
 ]
@@ -16,11 +16,12 @@ String >> day02A [
 String >> day02B [
    | parsed left right letter password |
    parsed   := self splitOnAny: '-: '.
-   left     := parsed at: 1 :> asNumber.
-   right    := parsed at: 2 :> asNumber.
-   letter   := parsed at: 3 :> first.
-   password := parsed at: 5.
-   ^ (password at: left :> = letter) ~~ (password at: right :> = letter).
+   left     := parsed first asNumber.
+   right    := parsed second asNumber.
+   letter   := parsed third first.
+   password := parsed fifth.
+   ^    (password at: left  :> = letter) 
+     ~~ (password at: right :> = letter).
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
@@ -28,9 +29,9 @@ String >> day03A [
    | h |
    h := self size.
    ^ h iota 
-    :> collect: [ :e |  e @ (((e - 1) * 3 % h) + 1) ]
+    :> collect: [ :e |  e @ (e - 1 * 3 % h + 1) ]
     :> collect: [ :p | self at: (p x) :> at: (p y) ]
-    :> select:  [ :e | e = $# ]
+    :> select:  (#= @@ $#)
     :> size.
 
 ]

@@ -5,7 +5,7 @@ Array >> day01A [
 	^ self combinationsOf: 2 
 	       select: [ :e | e sum == 2020 ]
 	    :> first 
-	    :> inject: 1 into: #*.
+	    :> fold: #*.
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
@@ -13,7 +13,7 @@ Array >> day01B [
 	^ self combinationsOf: 3
 	       select: [ :e | e sum == 2020 ]
 	    :> first 
-	    :> reduce: #*.
+	    :> fold: #*.
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
@@ -43,15 +43,15 @@ Array >> day09a: anInteger [
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
-Array >> day09b: anInteger [ 
+Array >> day09b: anInteger [
    | len lists |
    len := 2.
    [ true ] whileTrue: [ 
-      lists := 	self slide: len
-	         :> select: [ :l | l sum = anInteger ].
-		lists isNotEmpty ifTrue: [ 
-			^ (lists first fold: #min:) + (lists first fold: #max:) ].
-		len := len + 1.
-	].
-
+      lists := self slide: len 
+            :> select: [ :l | l sum = anInteger ].
+      lists isNotEmpty ifTrue: [ 
+         ^ (lists first fold: #min:) 
+         + (lists first fold: #max:) ].
+      len := len + 1.
+   ].
 ]

@@ -12,6 +12,7 @@ AoC2020Tests >> WhatILearnedFromAoC [
    "Learned that first, second, third etc can be used instead of at: 1, 2, 3 etc"
    "Learned about String new: 2 withAll: ..."
    "Learned you can assign blocks to local variables"
+   "Learned OrderedCollection/add is what you want for vector/push_back equivalent"
 ]
 
 { #category : #tests }
