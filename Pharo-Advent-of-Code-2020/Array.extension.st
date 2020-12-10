@@ -44,14 +44,21 @@ Array >> day09a: anInteger [
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
 Array >> day09b: anInteger [
-   | len lists |
-   len := 2.
-   [ true ] whileTrue: [ 
-      lists := self slide: len 
-            :> select: [ :l | l sum = anInteger ].
-      lists isNotEmpty ifTrue: [ 
-         ^ (lists first fold: #min:) 
-         + (lists first fold: #max:) ].
-      len := len + 1.
+   | xs |
+   2 to: self size do: [ :i |
+      xs := self slide: i 
+         :> select: [ :l | l sum = anInteger ].
+      xs isNotEmpty ifTrue: [ 
+         ^ xs first minMaxElement sum ].
    ].
+]
+
+{ #category : #'*Pharo-Advent-of-Code-2020' }
+Array >> day10a [
+	^ self sorted
+	    :> adjacentDifference
+	    :> frequencies 
+	    :> values
+       :> collect: 1 @@ #+
+	    :> fold: #*.
 ]
