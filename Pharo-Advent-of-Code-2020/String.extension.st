@@ -83,23 +83,16 @@ String >> day04B [
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
 String >> day05A [
-   ^ self lines 
-          collect: #day05AseatId
-       :> reduce: #max:.
+   ^ self lines collect: #day05AseatId 
+       :> max.
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
 String >> day05AseatId [
-   | bf lr a b x y |
-   bf := self first: 7.
-   lr := self last: 3.
-   a := 0.
-   b := 127.
-   bf do: [ :e | e = $B ifTrue: [ a := a + b // 2 + 1 ] ifFalse: [ b := a + b // 2 ] ].
-   x := 0.
-   y := 7.
-   lr do: [ :e | e = $R ifTrue: [ x := x + y // 2 + 1 ] ifFalse: [ y := x + y // 2 ] ].
-   ^ (8 * a) + x
+   ^ self reversed 
+       :> collect: [ :e | ('RLBF' indexOf: e) % 2 ] as: Array
+       :> polynomialEval: 2.
+    
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
