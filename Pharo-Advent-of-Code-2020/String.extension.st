@@ -90,7 +90,7 @@ String >> day05A [
 { #category : #'*Pharo-Advent-of-Code-2020' }
 String >> day05AseatId [
    ^ self reversed 
-       :> collect: [ :e | ('RLBF' indexOf: e) % 2 ] as: Array
+       :> collect: [ :e | ('RB' includes: e) asBit ] as: Array
        :> polynomialEval: 2.
     
 ]
