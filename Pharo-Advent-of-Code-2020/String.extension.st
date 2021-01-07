@@ -106,25 +106,19 @@ String >> day05B [
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
 String >> day06A [
-   | delim |
-   delim := String new: 2 withAll: Character cr. "can be better?"
-   ^ self splitOn: delim
-       :> collect: #lines
-       :> collect: [ :e | e reduce: #, ] "#flattened ? doesn't work"
-       :> collect: #asSet "copyWithoutDuplicates"
-       :> collect: #size
-       :> sum. "prev reduce: +"
+   ^ self splitOn: '\\' withCRs
+       :> collect: [ :e | e copyWithout: Character cr ]
+       :> collect: [ :e | e asSet size ]
+       :> sum
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
 String >> day06B [
-   | delim |
-   delim := String new: 2 withAll: Character cr.
-   ^ self splitOn: delim
-       :> collect: #lines
-       :> collect: [ :e | e reduce: #& ]
+   ^ self splitOn: '\\' withCRs 
+       :> collect: #lines 
+       :> collect: [ :e | e reduce: #&] 
        :> collect: #size
-       :> sum.
+       :> sum
 ]
 
 { #category : #'*Pharo-Advent-of-Code-2020' }
